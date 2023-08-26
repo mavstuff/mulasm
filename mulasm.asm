@@ -30,23 +30,25 @@ externdef time:proc
 
 
 main proc
+    ;int 3
     call _CRT_INIT
     push rbp
     mov rbp, rsp
+    sub rsp, 32
 
 go:
-    sub rsp, 32
+    
     xor ecx,ecx
     call time
+
     
-    sub rsp, 32
     mov ecx, eax
     call srand
 
 
     call rand
     xor rdx,rdx
-    mov ecx, 0AH
+    mov ecx, 10
     div ecx
     inc rdx
 
@@ -57,14 +59,13 @@ go:
 
     call rand
     xor rdx,rdx
-    mov ecx, 04H
+    mov ecx, 10
     div ecx
     inc rdx
 
     lea rsi, real_b
     mov [rsi], rdx
 
-    sub rsp, 32
     lea rsi, real_a
     mov r8, [rsi]
     lea rsi, real_b
@@ -82,7 +83,6 @@ go:
     mov [rsi], rax
 
 
-    sub rsp, 32
     lea rdx, input_ans
     lea rcx, fmtStrInput
     call scanf
@@ -95,14 +95,12 @@ go:
     cmp rcx, rax
     jne not_correct
 
-    sub rsp, 32
     lea rcx, fmtStrPrintOK
     call printf     
     jmp done
 
 not_correct:
 
-    sub rsp, 32
     lea rdx, real_ans
     mov rdx, [rdx]
     lea rcx, fmtStrPrintNotCorrect
@@ -110,13 +108,13 @@ not_correct:
 
 
 done:
-
-
     jmp go
-
 
     xor ecx, ecx ; the first argument for exit() is setting to 0
     call exit
+
+    add rsp, 32
+    pop rbp
 main endp
 
 end
