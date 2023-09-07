@@ -12,12 +12,12 @@ real_ans qword ?
 input_ans qword ?
 
 
-fmtStrPrint byte '%ld x %ld=?', 10, 0
+fmtStrPrint db '%ld x %ld=?', 10, 0
 
-fmtStrInput byte '%ld', 0
+fmtStrInput db '%ld', 0
 
-fmtStrPrintOK byte 'OK!', 10, 0
-fmtStrPrintNotCorrect byte 'NOT CORRECT! %ld', 10, 0
+fmtStrPrintOK db 'OK!', 10, 0
+fmtStrPrintNotCorrect db 'NOT CORRECT! %ld', 10, 0
 
 .code
 externdef printf:proc
@@ -38,18 +38,18 @@ main proc
 
 go:
     
-    xor ecx,ecx
+    xor rcx,rcx
     call time
 
     
-    mov ecx, eax
+    mov rcx, rax
     call srand
 
 
     call rand
     xor rdx,rdx
-    mov ecx, 10
-    div ecx
+    mov rcx, 10
+    div rcx
     inc rdx
 
 
